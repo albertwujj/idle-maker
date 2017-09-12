@@ -496,5 +496,96 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Idle Game Maker/GameNameViewController.swift"
+            timestampString = "526873011.25479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "8"
+            endingLineNumber = "8">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Idle_Game_Maker.GameNameViewController.__deallocating_deinit"
+                  moduleName = "Idle Game Maker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/albertwu/Xcode/Idle%20Game%20Maker/Idle%20Game%20Maker/GameNameViewController.swift"
+                  timestampString = "526873012.242798"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Idle_Game_Maker.GameNameViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; Idle_Game_Maker.GameNameViewController"
+                  moduleName = "Idle Game Maker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/albertwu/Xcode/Idle%20Game%20Maker/Idle%20Game%20Maker/GameNameViewController.swift"
+                  timestampString = "526873012.245605"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Idle_Game_Maker.GameNameViewController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; Idle_Game_Maker.GameNameViewController"
+                  moduleName = "Idle Game Maker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/albertwu/Xcode/Idle%20Game%20Maker/Idle%20Game%20Maker/GameNameViewController.swift"
+                  timestampString = "526873012.248627"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Idle_Game_Maker.GameNameViewController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Idle_Game_Maker.GameNameViewController&gt;"
+                  moduleName = "Idle Game Maker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/albertwu/Xcode/Idle%20Game%20Maker/Idle%20Game%20Maker/GameNameViewController.swift"
+                  timestampString = "526873012.251215"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Idle_Game_Maker.GameNameViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Idle_Game_Maker.GameNameViewController&gt;"
+                  moduleName = "Idle Game Maker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/albertwu/Xcode/Idle%20Game%20Maker/Idle%20Game%20Maker/GameNameViewController.swift"
+                  timestampString = "526873012.254425"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
