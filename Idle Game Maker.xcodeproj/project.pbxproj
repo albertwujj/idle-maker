@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7513E2171F6B3AA400C216F4 /* ButtonSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513E2161F6B3AA400C216F4 /* ButtonSprite.swift */; };
+		7513E2191F6C8A5300C216F4 /* BasicClickUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513E2181F6C8A5300C216F4 /* BasicClickUpgrade.swift */; };
+		7513E21B1F71B77200C216F4 /* IGBuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513E21A1F71B77200C216F4 /* IGBuildingTableViewCell.swift */; };
+		75245EB91F796ABD00FEBF30 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75245EB81F796ABD00FEBF30 /* UIHelper.swift */; };
+		75245EBB1F7993EA00FEBF30 /* BuildingUpgradesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75245EBA1F7993EA00FEBF30 /* BuildingUpgradesTableViewController.swift */; };
+		75245EBD1F79975000FEBF30 /* QuickAddBuildingUpgradesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75245EBC1F79975000FEBF30 /* QuickAddBuildingUpgradesViewController.swift */; };
+		753FA7D71F757DE6001BB7FF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753FA7D61F757DE6001BB7FF /* Extensions.swift */; };
+		756D75921F7C1E0C00004E28 /* MakingNewGame.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 756D75911F7C1E0C00004E28 /* MakingNewGame.storyboard */; };
 		75793C731F5B743600A2AB5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75793C721F5B743600A2AB5D /* AppDelegate.swift */; };
 		75793C751F5B743600A2AB5D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75793C741F5B743600A2AB5D /* GameScene.sks */; };
 		75793C771F5B743600A2AB5D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75793C761F5B743600A2AB5D /* Actions.sks */; };
@@ -44,6 +52,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7513E2161F6B3AA400C216F4 /* ButtonSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonSprite.swift; sourceTree = "<group>"; };
+		7513E2181F6C8A5300C216F4 /* BasicClickUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicClickUpgrade.swift; sourceTree = "<group>"; };
+		7513E21A1F71B77200C216F4 /* IGBuildingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGBuildingTableViewCell.swift; sourceTree = "<group>"; };
+		75245EB81F796ABD00FEBF30 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		75245EBA1F7993EA00FEBF30 /* BuildingUpgradesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingUpgradesTableViewController.swift; sourceTree = "<group>"; };
+		75245EBC1F79975000FEBF30 /* QuickAddBuildingUpgradesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAddBuildingUpgradesViewController.swift; sourceTree = "<group>"; };
+		753FA7D21F738DD3001BB7FF /* Epic sax Guy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Epic sax Guy.mp3"; sourceTree = "<group>"; };
+		753FA7D41F738F3A001BB7FF /* Epic sax Guy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Epic sax Guy.mp3"; sourceTree = "<group>"; };
+		753FA7D51F738F68001BB7FF /* Epic sax Guy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Epic sax Guy.mp3"; sourceTree = "<group>"; };
+		753FA7D61F757DE6001BB7FF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		756D75911F7C1E0C00004E28 /* MakingNewGame.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MakingNewGame.storyboard; sourceTree = "<group>"; };
 		75793C6F1F5B743600A2AB5D /* Idle Game Maker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Idle Game Maker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75793C721F5B743600A2AB5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75793C741F5B743600A2AB5D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -92,12 +111,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		753FA7D31F738F3A001BB7FF /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				753FA7D51F738F68001BB7FF /* Epic sax Guy.mp3 */,
+				753FA7D41F738F3A001BB7FF /* Epic sax Guy.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		75793C661F5B743600A2AB5D = {
 			isa = PBXGroup;
 			children = (
 				75793C711F5B743600A2AB5D /* Idle Game Maker */,
 				75793C8C1F5B743600A2AB5D /* Idle Game MakerTests */,
 				75793C701F5B743600A2AB5D /* Products */,
+				753FA7D21F738DD3001BB7FF /* Epic sax Guy.mp3 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +147,8 @@
 				75793C761F5B743600A2AB5D /* Actions.sks */,
 				75793C781F5B743600A2AB5D /* GameScene.swift */,
 				75793C7A1F5B743600A2AB5D /* GameViewController.swift */,
+				7513E21A1F71B77200C216F4 /* IGBuildingTableViewCell.swift */,
+				75C5EF551F624A8B00EFB4E8 /* IGBuildingTableView.swift */,
 				75793C9A1F5B774A00A2AB5D /* Building.swift */,
 				75C5EF4F1F5E4AA400EFB4E8 /* Game.swift */,
 				75C5EF451F5E041500EFB4E8 /* MainMenuViewController.swift */,
@@ -125,18 +156,25 @@
 				75C5EF4D1F5E43A000EFB4E8 /* GameSelectorTableViewCell.swift */,
 				75C5EF471F5E1DA000EFB4E8 /* GameNameViewController.swift */,
 				75C5EF491F5E1DCD00EFB4E8 /* CurrencyViewController.swift */,
+				753FA7D31F738F3A001BB7FF /* Sounds */,
 				75793C981F5B763400A2AB5D /* BuildingTableViewController.swift */,
-				758C0BFE1F5C9B3A0007CC86 /* BuildingTableViewCell.swift */,
 				75793C9C1F5BD7F700A2AB5D /* BuildingViewController.swift */,
-				75C5EF551F624A8B00EFB4E8 /* IGBuildingTableView.swift */,
+				75C5EF5B1F670B7D00EFB4E8 /* BasicClickUpgradeViewController.swift */,
 				75793C7C1F5B743600A2AB5D /* Main.storyboard */,
+				756D75911F7C1E0C00004E28 /* MakingNewGame.storyboard */,
+				7513E2181F6C8A5300C216F4 /* BasicClickUpgrade.swift */,
 				75793C7F1F5B743600A2AB5D /* Assets.xcassets */,
 				75793C811F5B743600A2AB5D /* LaunchScreen.storyboard */,
 				75793C841F5B743600A2AB5D /* Info.plist */,
+				758C0BFE1F5C9B3A0007CC86 /* BuildingTableViewCell.swift */,
 				75C5EF511F61E35C00EFB4E8 /* InGameBuildingCell.swift */,
 				75C5EF531F61E3E100EFB4E8 /* IGBuildingCell.swift */,
 				75C5EF571F65033F00EFB4E8 /* SpriteNodeDetectTouch.swift */,
-				75C5EF5B1F670B7D00EFB4E8 /* BasicClickUpgradeViewController.swift */,
+				7513E2161F6B3AA400C216F4 /* ButtonSprite.swift */,
+				753FA7D61F757DE6001BB7FF /* Extensions.swift */,
+				75245EB81F796ABD00FEBF30 /* UIHelper.swift */,
+				75245EBA1F7993EA00FEBF30 /* BuildingUpgradesTableViewController.swift */,
+				75245EBC1F79975000FEBF30 /* QuickAddBuildingUpgradesViewController.swift */,
 			);
 			path = "Idle Game Maker";
 			sourceTree = "<group>";
@@ -200,6 +238,7 @@
 				TargetAttributes = {
 					75793C6E1F5B743600A2AB5D = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9P3FVEPY7V;
 						ProvisioningStyle = Automatic;
 					};
 					75793C881F5B743600A2AB5D = {
@@ -233,6 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				756D75921F7C1E0C00004E28 /* MakingNewGame.storyboard in Resources */,
 				75793C7E1F5B743600A2AB5D /* Main.storyboard in Resources */,
 				75793C751F5B743600A2AB5D /* GameScene.sks in Resources */,
 				75793C801F5B743600A2AB5D /* Assets.xcassets in Resources */,
@@ -260,16 +300,23 @@
 				75C5EF461F5E041500EFB4E8 /* MainMenuViewController.swift in Sources */,
 				758C0BFF1F5C9B3A0007CC86 /* BuildingTableViewCell.swift in Sources */,
 				75C5EF501F5E4AA400EFB4E8 /* Game.swift in Sources */,
+				75245EB91F796ABD00FEBF30 /* UIHelper.swift in Sources */,
 				75793C9D1F5BD7F700A2AB5D /* BuildingViewController.swift in Sources */,
+				753FA7D71F757DE6001BB7FF /* Extensions.swift in Sources */,
 				75C5EF481F5E1DA000EFB4E8 /* GameNameViewController.swift in Sources */,
+				75245EBD1F79975000FEBF30 /* QuickAddBuildingUpgradesViewController.swift in Sources */,
 				75793C791F5B743600A2AB5D /* GameScene.swift in Sources */,
 				75793C7B1F5B743600A2AB5D /* GameViewController.swift in Sources */,
 				75C5EF561F624A8B00EFB4E8 /* IGBuildingTableView.swift in Sources */,
+				7513E2191F6C8A5300C216F4 /* BasicClickUpgrade.swift in Sources */,
+				7513E21B1F71B77200C216F4 /* IGBuildingTableViewCell.swift in Sources */,
 				75793C9B1F5B774A00A2AB5D /* Building.swift in Sources */,
+				7513E2171F6B3AA400C216F4 /* ButtonSprite.swift in Sources */,
 				75C5EF4E1F5E43A000EFB4E8 /* GameSelectorTableViewCell.swift in Sources */,
 				75C5EF521F61E35C00EFB4E8 /* InGameBuildingCell.swift in Sources */,
 				75C5EF5C1F670B7D00EFB4E8 /* BasicClickUpgradeViewController.swift in Sources */,
 				75C5EF581F65033F00EFB4E8 /* SpriteNodeDetectTouch.swift in Sources */,
+				75245EBB1F7993EA00FEBF30 /* BuildingUpgradesTableViewController.swift in Sources */,
 				75793C991F5B763400A2AB5D /* BuildingTableViewController.swift in Sources */,
 				75793C731F5B743600A2AB5D /* AppDelegate.swift in Sources */,
 				75C5EF4A1F5E1DCD00EFB4E8 /* CurrencyViewController.swift in Sources */,
@@ -413,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9P3FVEPY7V;
 				INFOPLIST_FILE = "Idle Game Maker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -426,6 +474,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9P3FVEPY7V;
 				INFOPLIST_FILE = "Idle Game Maker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

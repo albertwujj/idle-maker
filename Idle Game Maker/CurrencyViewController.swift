@@ -14,6 +14,8 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var startingCurrency: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    @IBOutlet weak var currencyNamePrompt: UILabel!
+    
     var games: NSMutableDictionary = NSMutableDictionary()
     var gameName:String?
     
@@ -25,7 +27,10 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         updateSaveButtonState()
         
          games = (UIApplication.shared.delegate as! AppDelegate).games
-        // Do any additional setup after loading the view.
+        
+        
+        //UI Adjustments
+        UIHelper.makeTextAdjusting(label: currencyNamePrompt)
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,6 +69,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
 
             
             buildingTableViewController.gameName = self.gameName
+        
             buildingTableViewController.currencyName = currencyName.text!
         }
     }

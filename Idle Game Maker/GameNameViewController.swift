@@ -14,8 +14,11 @@ class GameNameViewController: UIViewController, UITextFieldDelegate {
     //MARK: Properties
     @IBOutlet weak var gameName: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    //yo
     var games: NSMutableDictionary = NSMutableDictionary()
+    
+    @IBOutlet weak var namePromptLabel: UILabel!
+    @IBOutlet weak var tfLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,14 @@ class GameNameViewController: UIViewController, UITextFieldDelegate {
         updateSaveButtonState()
         
         games = (UIApplication.shared.delegate as! AppDelegate).games
+        
+        //UI Adjustments
+        UIHelper.makeTextAdjusting(label: namePromptLabel)
+        UIHelper.makeTextAdjusting(label: tfLabel)
+       
+        
+      
+        
         // Do any additional setup after loading the view.
     }
 
@@ -57,10 +68,10 @@ class GameNameViewController: UIViewController, UITextFieldDelegate {
     private func saveGames() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(games, toFile: AppDelegate.ArchiveURL.path)
         if isSuccessfulSave {
-            os_log("Saving buildings was successful", log: OSLog.default, type: .debug)
+            os_log("Saving games was successful", log: OSLog.default, type: .debug)
         }
         else {
-            os_log("Failed to save buildings...", log: OSLog.default, type: .debug)
+            os_log("Failed to save games...", log: OSLog.default, type: .debug)
         }
         //save the current gameIdentifier to know which game
         //was last displayed by the buildingTableViewController

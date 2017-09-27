@@ -10,6 +10,7 @@ import UIKit
 import os.log
 import Foundation
 
+
 class BuildingViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //MARK: Properties
@@ -18,7 +19,15 @@ class BuildingViewController: UIViewController, UITextFieldDelegate, UIImagePick
     @IBOutlet weak var buildingCPSTF: UITextField!
     @IBOutlet weak var buildingCostTF: UITextField!
     
+    @IBOutlet weak var buildingCPSLabel: UILabel!
+    
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    @IBOutlet weak var addBuildingUpgradesButton: UIButton!
+    
+    
+    
+    var currencyName: String = ""
     
     var building: Building?
     
@@ -37,8 +46,12 @@ class BuildingViewController: UIViewController, UITextFieldDelegate, UIImagePick
             
             buildingCPSTF.text = building.cps
             buildingCostTF.text = building.initialCost
+            
         }
-
+        
+        buildingCPSLabel.text = currencyName[0] + "P" + "S:"
+        
+        UIHelper.setButtonBorder(button: addBuildingUpgradesButton)
         updateSaveButtonState()
     }
     
@@ -68,7 +81,7 @@ class BuildingViewController: UIViewController, UITextFieldDelegate, UIImagePick
         let name = buildingNameTF.text
         
         
-        building = Building(name: name ?? "", initialCost: buildingCostTF.text!, cps: buildingCPSTF.text!)
+        building = Building(name: name ?? "", photo: buildingImage.image, initialCost: buildingCostTF.text!, cps: buildingCPSTF.text!)
         
     }
     
@@ -108,7 +121,7 @@ class BuildingViewController: UIViewController, UITextFieldDelegate, UIImagePick
         buildingNameTF.resignFirstResponder()
         buildingCPSTF.resignFirstResponder()
         buildingCostTF.resignFirstResponder()
-        
+        print("ello")
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self

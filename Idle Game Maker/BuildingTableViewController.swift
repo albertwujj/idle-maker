@@ -75,7 +75,8 @@ class BuildingTableViewController: UITableViewController {
                 print(gameIdentifier)
             }
            
-            
+            gameNameTextField.text = gameIdentifier as String
+
         }
        
     }
@@ -164,14 +165,22 @@ class BuildingTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        saveBuildings()
         switch (segue.identifier ?? "") {
         case "AddItem":
             os_log("Adding a new building.", log: OSLog.default, type: .debug)
+            guard let buildingViewController = segue.destination.childViewControllers.first! as? BuildingViewController else {
+                fatalError("Unexpected destinaton: \(segue.destination)")
+                
+            }
+            buildingViewController.currencyName = currencyName
+
         case "ShowDetail":
             guard let buildingViewController = segue.destination as? BuildingViewController else {
                 fatalError("Unexpected destinaton: \(segue.destination)")
                 
             }
+            buildingViewController.currencyName = currencyName
             guard let selectedBuildingCell = sender as? BuildingTableViewCell else {
                 fatalError("Unexpected source: \(sender ?? "")")
             }
@@ -182,11 +191,16 @@ class BuildingTableViewController: UITableViewController {
             let correspondingBuilding = buildings[indexPath.row]
             buildingViewController.building = Building(name: correspondingBuilding.name!, photo: correspondingBuilding.photo,
                                                        initialCost: correspondingBuilding.initialCost, cps: correspondingBuilding.cps)
-        case "ChangeGameFromEditor":
+        case "":
             guard let gameSelectorTableViewController = segue.destination.childViewControllers.first! as? GameSelectorTableViewController else {
                 fatalError("Unexpected destinaton: \(segue.destination)")
             }
             gameSelectorTableViewController.segueHere = segue
+        case "AddBasicClickUpgrade":
+            guard let basicClickUpgradeViewController = segue.destination.childViewControllers.first! as? BasicClickUpgradeViewController else {
+                fatalError("Unexpected destinaton: \(segue.destination)")
+            }
+            basicClickUpgradeViewController.gameID = gameIdentifier as String!
         default:
             print("different segue")
         }
@@ -217,7 +231,7 @@ class BuildingTableViewController: UITableViewController {
     //save Buildings under the current gameIdentifier
     
     private func saveBuildings() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(buildings, toFile: Building.DocumentsDirectory.appendingPathComponent("usergame" + (gameIdentifier as String)).path)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(buildings, toFile: Building.DocumentsDirectory.appendingPathComponent("usergamebuildings" + (gameIdentifier as String)).path)
         print(gameIdentifier)
         if isSuccessfulSave {
             os_log("Saving buildings was successful", log: OSLog.default, type: .debug)
@@ -233,7 +247,7 @@ class BuildingTableViewController: UITableViewController {
     
     
     private func loadBuildings() -> [Building]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Building.DocumentsDirectory.appendingPathComponent("usergame" + (gameIdentifier as String)).path) as? [Building]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Building.DocumentsDirectory.appendingPathComponent("usergamebuildings" + (gameIdentifier as String)).path) as? [Building]
     }
     
     private func saveCurrentGameID() {

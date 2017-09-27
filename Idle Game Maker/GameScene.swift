@@ -18,53 +18,22 @@ extension Double {
 }
 
 
-extension String {
-    
-    subscript (i: Int) -> Character {
-        return self[index(startIndex, offsetBy: i)]
-    }
-    
-    subscript (i: Int) -> String {
-        return String(self[i] as Character)
-    }
-    
-    subscript (r: Range<Int>) -> String {
-        let start = index(startIndex, offsetBy: r.lowerBound)
-        let end = index(startIndex, offsetBy: r.upperBound)
-        return self[Range(start ..< end)]
-    }
-}
 
 
-class IGBuildingCell: UITableViewCell {
-    
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var costLabel: UILabel!
-    
-    @IBOutlet weak var cpsLabel: UILabel!
-    
-    @IBOutlet weak var countLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-}
+
+
 
 
 class GameScene: SKScene {
     
     //MARK: Properties
+    
     var viewController: GameViewController!
+    var igBuildingTableView: IGBuildingTableView!
+    var game: Game?
+    var buildings: [Building] = []
+    var upgrades: [Any] = []
+    
     
     var clickee: SKSpriteNode?
     var scoreLabel: SKLabelNode?
@@ -76,16 +45,20 @@ class GameScene: SKScene {
     var buildingMenuLabel: SKLabelNode?
     var resetGameLabel: SKLabelNode?
     
-    var initialScoreData: [Any] = []
+    var initialScoreData: [String: Any] = [:]
     var numCurrency: Double
      = 0
-    var game: Game?
-    var buildings: [Building] = []
+    
     var countBuildings: NSMutableDictionary = [:]
     var cps: Double = 0
-    var secSinceLastSecSave = 0;
+    var secSinceLastSecSave = 0
     var timer = Timer()
+    
+    var clickPower: Double = 1
+    var basicClickUpgradeLevel: Int = 0
+    
    
+    //var hiddenTableView
     //MARK: Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     //static let ArchiveURL = DocumentsDirectory.appendingPathComponent("building")
@@ -93,21 +66,41 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
+        let backgroundMusic = SKAudioNode(fileNamed: "Epic sax Guy.mp3")
+        backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
         
         //load saved progress
-        if let savedData = loadProgressData() as [Any]? {
+        if let savedData = loadProgressData() {
             initialScoreData = savedData
-            numCurrency = initialScoreData[0] as! Double
-            cps = initialScoreData[1] as! Double
-            countBuildings = initialScoreData[2] as! NSMutableDictionary
-            //update count of buildings in GameViewController's [Building]
-         
-            viewController.igBuildingTableView.reloadData()
+            numCurrency = initialScoreData["NumCurrency"] as! Double
+            
+            
+
+            countBuildings = initialScoreData["CountBuildings"] as! NSMutableDictionary
+            basicClickUpgradeLevel = initialScoreData["BasicClickUpgradeLevel"] as! Int
+            clickPower = 1 * pow(Double((upgrades[0] as! BasicClickUpgrade).cpMultiplier)!, Double(basicClickUpgradeLevel))
+            cps = 0
+            for building in buildings {
+                if let buildingCount = countBuildings.object(forKey: building.name!) as? Int {
+                    cps += Double(buildingCount) * Double(building.cps)!
+                 
+                }
+               
+            }
+            let timeSinceLastClosed = AppDelegate.loadTimeSinceLastClosed(game: game!)!
+            print(timeSinceLastClosed)
+            print(cps)
+            numCurrency += timeSinceLastClosed * cps
+            igBuildingTableView.reloadData()
+            
+            
+            
         }
         
         
         //hide menu at first
-        viewController.igBuildingTableView.isHidden = true
+        igBuildingTableView.isHidden = true
         // Get nodes from scene and store them for use later
         self.clickee = self.childNode(withName: "Clickee") as? SKSpriteNode
         clickee?.isUserInteractionEnabled = false
@@ -124,7 +117,7 @@ class GameScene: SKScene {
         currencyName!.text = game!.currencyName
         
         cpsName = self.childNode(withName: "CPSName") as? SKLabelNode
-        cpsName!.text = game!.currencyName[0] + "ps"
+        cpsName!.text = game!.currencyName[0] + "pS"
         
         buildingMenuButton = self.childNode(withName: "BuildingMenuButton") as? SKSpriteNode
         buildingMenuButton!.isUserInteractionEnabled = false
@@ -151,7 +144,7 @@ class GameScene: SKScene {
         numCurrency += cps
         updateNumCurrency()
         secSinceLastSecSave += 1
-        if secSinceLastSecSave > 5 {
+        if secSinceLastSecSave > 3 {
             secSinceLastSecSave = 0
             updateProgress()
         }
@@ -180,14 +173,56 @@ class GameScene: SKScene {
                 countBuildings.setObject(1, forKey: name as NSCopying)
             }
             //updates the building menu to increase cost and count
-            viewController.igBuildingTableView.reloadData()
             updateProgress()
             
            
         }
         
     }
+    func buyBasicClickUpgrade(basicClickUpgrade: BasicClickUpgrade) {
+        let cost = Double(basicClickUpgrade.cost)! * pow(Double(basicClickUpgrade.costMultiplier)!, Double(basicClickUpgradeLevel))
+        if(numCurrency >= cost) {
+            numCurrency -= cost
+            basicClickUpgradeLevel += 1
+            clickPower = pow(Double(basicClickUpgrade.cpMultiplier)!, Double(basicClickUpgradeLevel))
+            updateProgress()
+        }
+        
+    }
+    //MARK: Random number generators
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / Float(UINT32_MAX))
+    }
+    func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        return random() * (max - min) + min
+    }
+    
     //MARK: Private Functions
+    
+    private func addClickPowerSprite(clickPoint: CGPoint) {
+        let clickPowerSprite = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        clickPowerSprite.text = clickPower.format(f: ".0")
+        
+        let xVariation = random(min: CGFloat(-20), max: CGFloat(20))
+        let yVariation = random(min: CGFloat(1), max: CGFloat(1))
+        let spawnPoint = CGPoint(x: clickPoint.x + xVariation, y: clickPoint.y + yVariation)
+
+        clickPowerSprite.position = spawnPoint
+        addChild(clickPowerSprite)
+        
+        
+        let duration = random(min: CGFloat(0.8), max: CGFloat(0.8))
+        let moveDistanceUp = random(min: CGFloat(40), max: CGFloat(40))
+        let actionFade = SKAction.fadeAlpha(by: -0.7, duration: TimeInterval(duration))
+        let actionMove = SKAction.move(to: CGPoint(x: spawnPoint.x, y: spawnPoint.y + moveDistanceUp), duration:
+            TimeInterval(duration))
+        let actionMoveWhileFade = SKAction.group([actionFade, actionMove])
+        let actionMoveDone = SKAction.removeFromParent()
+        
+        clickPowerSprite.run(SKAction.sequence([actionMoveWhileFade, actionMoveDone]))
+        
+        
+    }
     private func updateNumCurrency() {
         scoreLabel!.text = numCurrency.format(f: ".1")
     }
@@ -199,17 +234,19 @@ class GameScene: SKScene {
         saveProgressData()
     }
     
+    //MARK: Persist Data
+    
     private func loadBuildings() -> [Building]? {
         
         return NSKeyedUnarchiver.unarchiveObject(withFile: Building.DocumentsDirectory.appendingPathComponent("usergame" + game!.name!).path) as? [Building]
     }
     
-    private func loadProgressData() -> [Any]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: GameScene.DocumentsDirectory.appendingPathComponent("usergameprogress" + game!.name!).path) as? [Any]
+    private func loadProgressData() -> [String: Any]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: GameScene.DocumentsDirectory.appendingPathComponent("usergameprogress" + game!.name!).path) as? [String: Any]
     }
     
     private func saveProgressData() {
-        let toSaveData = [numCurrency, cps, countBuildings] as [Any]
+        let toSaveData = ["NumCurrency": numCurrency, "CountBuildings": countBuildings, "BasicClickUpgradeLevel": basicClickUpgradeLevel] as [String : Any]
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(toSaveData, toFile: GameScene.DocumentsDirectory.appendingPathComponent("usergameprogress" + game!.name!).path)
         if isSuccessfulSave {
             os_log("Saving progressdata was successful", log: OSLog.default, type: .debug)
@@ -220,8 +257,8 @@ class GameScene: SKScene {
         saveTimeLastClosed()
     }
     private func saveTimeLastClosed() {
-        let timeLastClosed = NSTimeIntervalSince1970
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(timeLastClosed, toFile: AppDelegate.DocumentsDirectory.appendingPathComponent("timelastclosed").path)
+        let timeLastClosed = Date().timeIntervalSince1970
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(timeLastClosed, toFile: AppDelegate.DocumentsDirectory.appendingPathComponent("timelastclosedfor" + game!.name).path)
         if isSuccessfulSave {
             os_log("Saving timelastclosed was successful", log: OSLog.default, type: .debug)
         }
@@ -236,12 +273,16 @@ class GameScene: SKScene {
         let touchedNode = atPoint(positionInScene)
         
         if let name = touchedNode.name {
-            if name == "Clickee" {
-                numCurrency+=1
-                scoreLabel!.text = numCurrency.format(f: ".1")
+            if name == "Clickee" || name == "ClickeeLabel" {
+                numCurrency += clickPower
                 
+                scoreLabel!.text = numCurrency.format(f: ".1")
+                addClickPowerSprite(clickPoint: positionInScene)
+                let jiggle = SKAction.sequence([SKAction.scale(by: 0.9, duration: TimeInterval(0.1)), SKAction.scale(by: 1.11, duration: 0.02)])
+                clickee?.run(jiggle)
             }
         }
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -251,7 +292,8 @@ class GameScene: SKScene {
         
         if let name = touchedNode.name {
             if name == "BuildingMenuButton" || name == "BuildingMenuLabel"{
-                viewController.igBuildingTableView.isHidden = false
+                
+                igBuildingTableView.isHidden = false
             }
         }
         if let name = touchedNode.name {
@@ -259,8 +301,10 @@ class GameScene: SKScene {
                 numCurrency = 0
                 cps = 0
                 countBuildings = NSMutableDictionary()
+                basicClickUpgradeLevel = 0
+                clickPower = 1
                 updateProgress()
-                viewController.igBuildingTableView.reloadData()
+                igBuildingTableView.reloadData()
                 
             }
         }

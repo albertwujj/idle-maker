@@ -10,6 +10,8 @@ import UIKit
 
 class IGBuildingTableView: UITableView {
     
+    var displayingMenu: String?
+   
    
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)

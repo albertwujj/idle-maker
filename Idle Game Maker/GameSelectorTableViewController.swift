@@ -3,73 +3,89 @@
 //  Idle Game Maker
 //
 //  Created by Albert Wu on 9/4/17.
-//  Copyright © 2017 Old Friend. All rights reserved.
+//
 //
 
 import UIKit
+import os.log
+
+/* SHORT EXPLANATION:
+ The Game class represents the data associated with a game that the user has created.
+ 
+ GameSelectorTableViewController displays and controls the TableView that allows the user to select a specific game to
+either play or edit. The user can get to this view by either selecting the Play Game or Edit Game button on the main menu.
+Depending on which button was pressed to get here, once the user selects a game on the TableView, the app will allow the
+user to then either play or edit the game.
+ 
+ Pretty straightfoward class, but easiest to understand without context.
+*/
 
 class GameSelectorTableViewController: UITableViewController {
     
-    
+    //NSMutable dictionary where the key is a String representing the game's name, and the value is the Game class itself
     var games: NSMutableDictionary = [:]
+    
+    //a map mapping indexes to gameNames in order to allow the TableViewController to access the games
+    //in a consistent order to display consistently in the TableView
     var indexToGameName: [String] = []
-    //keep track of the latest game selected to pass in when seguing
+    
+    //keep track of the latestGameNameSelected to pass to the new ViewController when seguing
     var lastGameNameSelected: String = ""
     
+    //keep track of the segue activated to get here, in order to know whether to play or edit a game
     var segueHere: UIStoryboardSegue?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //make a local array containing the values of global games dictionary
-        
+        //set reference to global games dictionary
+        //most of the project's classes need access to the games dictionary
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         games = appDelegate.games
         
+        //map indexes to gameNames
         indexToGameName = [String](repeating: String(), count: games.count)
         var i = 0
         for gameName in games.allKeys {
             indexToGameName[i] = gameName as! String
             i += 1
         }
- 
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.tableView.rowHeight = 90.0
-        navigationItem.leftBarButtonItem = editButtonItem
+        //navigationItem.leftBarButtonItem = editButtonItem
         
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+   // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         switch (segue.identifier ?? "") {
+        //pass gameName and currencyName to game editor
         case "EditSelectedGame":
             guard let buildingTableViewController = segue.destination.childViewControllers.first! as? BuildingTableViewController else {
                 fatalError("Unexpected segue destination: \(segue.destination)")
             }
             buildingTableViewController.gameName = lastGameNameSelected
+            buildingTableViewController.currencyName = (games.object(forKey: lastGameNameSelected) as! Game).currencyName
+        //pass Game object to GameViewController
         case "PlaySelectedGame":
             guard let gameViewController = segue.destination as? GameViewController else {
                 fatalError("Unexpected segue destination: \(segue.destination)")
             }
-            gameViewController.game = games.object(forKey: lastGameNameSelected) as? Game
+            gameViewController.game = (games.object(forKey: lastGameNameSelected) as! Game)
         default:
             print("neither EditGame nor PlayGame")
         }
-        
-        
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -80,7 +96,7 @@ class GameSelectorTableViewController: UITableViewController {
         return indexToGameName.count
     }
 
-    
+    //provide the cell for the TableView to display
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> GameSelectorTableViewCell {
         let cellID = "GameSelectorTableViewCell"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? GameSelectorTableViewCell else {
@@ -103,7 +119,24 @@ class GameSelectorTableViewController: UITableViewController {
     */
 
     
-    // Override to support editing the table view.
+    //based on the segue activated to get here, either play or edit the selected game
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let gameNameSelected = (games.object(forKey: indexToGameName[indexPath.row]) as? Game)?.name
+        lastGameNameSelected = gameNameSelected!
+        
+        if segueHere!.identifier == "ChooseToEdit" {
+            self.performSegue(withIdentifier: "EditSelectedGame", sender: gameNameSelected)
+        }
+        else if segueHere!.identifier == "ChooseToPlay"{
+            self.performSegue(withIdentifier: "PlaySelectedGame", sender: gameNameSelected)
+        }
+        else if segueHere!.identifier == "ChangeGameFromEditor"{
+            self.performSegue(withIdentifier: "EditSelectedGame", sender: gameNameSelected)
+        }
+    }
+    
+    
+    //Support deleting games from the TableView
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let gameName = indexToGameName[indexPath.row]
@@ -117,15 +150,19 @@ class GameSelectorTableViewController: UITableViewController {
             //delete game from dictionary
             indexToGameName.remove(at: indexPath.row)
             games.removeObject(forKey: gameName)
-            AppDelegate.saveGames(gamesPassed: games)
             
+            //save the updated dictionary of games to storage
+            saveGames()
+            
+            //delete the progressData for the game
+            //deleteProgressData(gameName: gameName)
+ 
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            //Unsuppported
         }    
     }
     
-
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -141,39 +178,27 @@ class GameSelectorTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //MARK: Private Functions
+    //save the dictionary of games to storage
+    private func saveGames() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(games, toFile: AppDelegate.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Saving buildings was successful", log: OSLog.default, type: .debug)
+        }
+        else {
+            os_log("Failed to save buildings...", log: OSLog.default, type: .debug)
+        }
     }
-    */
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let gameNameSelected = (games.object(forKey: indexToGameName[indexPath.row]) as? Game)?.name
-        lastGameNameSelected = gameNameSelected!
-        
-        if segueHere!.identifier == "ChooseToEdit" {
+    private func deleteProgressData(gameName: String) {
        
-                
-            self.performSegue(withIdentifier: "EditSelectedGame", sender: gameNameSelected)
-                
-            
-            
+        do {
+            try FileManager.default.removeItem(at: URL(string: GameScene.DocumentsDirectory.appendingPathComponent("usergameprogress" + gameName).path)!)
         }
-        else if segueHere!.identifier == "ChooseToPlay"{
+        catch let error as NSError {
+            print("Unable to delete gameprogressdata: \(error)")
+        }
         
-            self.performSegue(withIdentifier: "PlaySelectedGame", sender: gameNameSelected)
-            
-        }
-        else if segueHere!.identifier == "ChangeGameFromEditor"{
-
-            self.performSegue(withIdentifier: "EditSelectedGame", sender: gameNameSelected)
-            
-        }
     }
-    
    
     
 }

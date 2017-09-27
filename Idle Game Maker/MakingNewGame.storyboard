@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6M1-JX-D2x">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game Name View Controller-->
+        <scene sceneID="geB-XZ-Td4">
+            <objects>
+                <viewController id="HRH-EN-HZ0" customClass="GameNameViewController" customModule="Idle_Game_Maker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xXY-u4-0iz"/>
+                        <viewControllerLayoutGuide type="bottom" id="jYA-UY-y04"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Ir-3E-t8c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your game called?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0P-9E-B0a">
+                                <rect key="frame" x="56.5" y="131" width="262.5" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dga-cA-kKM">
+                                <rect key="frame" x="56.5" y="221" width="198.5" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-dk-b7X">
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r3I-gd-5E9">
+                                        <rect key="frame" x="67" y="0.0" width="131.5" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="r3I-gd-5E9" firstAttribute="height" secondItem="4TI-dk-b7X" secondAttribute="height" id="ka7-gl-Iaq"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="r3I-gd-5E9" firstAttribute="width" secondItem="C0P-9E-B0a" secondAttribute="width" multiplier="0.5" id="2ir-PO-AFv"/>
+                            <constraint firstItem="4TI-dk-b7X" firstAttribute="top" secondItem="C0P-9E-B0a" secondAttribute="bottom" constant="30" id="7BL-Kf-4KU"/>
+                            <constraint firstItem="C0P-9E-B0a" firstAttribute="centerX" secondItem="7Ir-3E-t8c" secondAttribute="centerX" id="BjL-TT-Pag"/>
+                            <constraint firstItem="Dga-cA-kKM" firstAttribute="leading" secondItem="C0P-9E-B0a" secondAttribute="leading" id="Job-3M-1qq"/>
+                            <constraint firstItem="C0P-9E-B0a" firstAttribute="top" secondItem="xXY-u4-0iz" secondAttribute="bottom" constant="67" id="Leb-HR-XQc"/>
+                            <constraint firstItem="C0P-9E-B0a" firstAttribute="width" secondItem="7Ir-3E-t8c" secondAttribute="width" multiplier="0.7" id="QEO-3c-lD9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WoV-mU-6B2">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="wbg-nz-HoQ">
+                            <connections>
+                                <segue destination="6hs-pj-8SL" kind="presentation" id="HgZ-lw-48E"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="UFI-Yo-qom">
+                            <connections>
+                                <segue destination="TS5-2N-Nuy" kind="show" id="PTC-GN-SBX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="gameName" destination="r3I-gd-5E9" id="CUU-tg-hem"/>
+                        <outlet property="namePromptLabel" destination="C0P-9E-B0a" id="a9W-1r-bgS"/>
+                        <outlet property="saveButton" destination="UFI-Yo-qom" id="5i9-5c-JEk"/>
+                        <outlet property="tfLabel" destination="4TI-dk-b7X" id="hjc-f5-HlC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7AU-dj-gLy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1423" y="-788"/>
+        </scene>
+        <!--Currency View Controller-->
+        <scene sceneID="aM3-MA-qKr">
+            <objects>
+                <viewController id="TS5-2N-Nuy" customClass="CurrencyViewController" customModule="Idle_Game_Maker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TMw-iD-MVJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="kfk-3b-qcs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wp7-et-XCN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jC4-7b-X9g">
+                                <rect key="frame" x="47" y="268" width="250" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency Name: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymo-BL-teh">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Cookie" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c8B-X3-NIm">
+                                        <rect key="frame" x="130" y="0.0" width="120" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="Kjz-p9-vNf"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starting Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMS-Yv-bTk">
+                                <rect key="frame" x="75" y="215" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92Y-6c-wCt">
+                                <rect key="frame" x="40" y="320" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="waj-rJ-wks">
+                                <rect key="frame" x="216" y="215" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your main currency's name?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ron-dp-LtP">
+                                <rect key="frame" x="47" y="113" width="281.5" height="119.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ron-dp-LtP" firstAttribute="width" secondItem="Wp7-et-XCN" secondAttribute="width" multiplier="0.75" id="5dw-2b-1sG"/>
+                            <constraint firstItem="jC4-7b-X9g" firstAttribute="leading" secondItem="ron-dp-LtP" secondAttribute="leading" id="86N-PY-iNa"/>
+                            <constraint firstItem="jC4-7b-X9g" firstAttribute="top" secondItem="ron-dp-LtP" secondAttribute="bottom" constant="35.5" id="IdG-lz-DFl"/>
+                            <constraint firstItem="ron-dp-LtP" firstAttribute="top" secondItem="TMw-iD-MVJ" secondAttribute="bottom" constant="49" id="Oq6-sD-8Hz"/>
+                            <constraint firstItem="ron-dp-LtP" firstAttribute="centerX" secondItem="Wp7-et-XCN" secondAttribute="centerX" id="SCl-RR-TME"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="xgc-sl-7fh">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="dnf-iP-WXH">
+                            <connections>
+                                <action selector="cancel:" destination="TS5-2N-Nuy" id="yJG-cN-nky"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="hGG-68-Hqv">
+                            <connections>
+                                <segue destination="4zx-MN-qLj" kind="presentation" id="HyX-eT-s5x"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="currencyName" destination="c8B-X3-NIm" id="FBp-Hr-JGH"/>
+                        <outlet property="currencyNamePrompt" destination="ron-dp-LtP" id="5nP-zh-oPW"/>
+                        <outlet property="saveButton" destination="hGG-68-Hqv" id="5Jn-RJ-lp5"/>
+                        <outlet property="startingCurrency" destination="waj-rJ-wks" id="sDi-Uk-jTa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PBX-aq-rlW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-569" y="-788"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NMf-Of-sUU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6M1-JX-D2x" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nrv-nH-w77">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HRH-EN-HZ0" kind="relationship" relationship="rootViewController" id="Okg-rC-x4m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4xp-JT-Ino" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2300" y="-829"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CsJ-Wz-TN9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2PV-bE-GGz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="R9s-lW-Rjt">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TS5-2N-Nuy" kind="relationship" relationship="rootViewController" id="gtO-4Q-cdS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M3N-af-3J1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="751" y="-160"/>
+        </scene>
+        <!--UIViewController-nU2-a5-HS4-->
+        <scene sceneID="WYq-Jc-99f">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-nU2-a5-HS4" id="6hs-pj-8SL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SaU-Ua-7UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1793" y="-1768"/>
+        </scene>
+        <!--UINavigationController-xna-wS-Jt1-->
+        <scene sceneID="Nu3-7E-YL8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UINavigationController-xna-wS-Jt1" id="4zx-MN-qLj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0z5-oo-760" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2746" y="-391"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gtO-4Q-cdS"/>
+    </inferredMetricsTieBreakers>
+</document>

@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var games: NSMutableDictionary = NSMutableDictionary()
-    var timeSinceLastOpened: Double = 0.0
+  
     var gamesNeedToSaveLastTime = NSMutableDictionary()
     
     
@@ -26,15 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let savedGames = loadGames() {
             games = savedGames
         }
-        if let savedLastTime = loadTimeLastClosed() {
-            timeSinceLastOpened = NSTimeIntervalSince1970 - savedLastTime
-        }
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        saveTimeLastClosed()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -53,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        saveTimeLastClosed()
     }
 
     //MARK: Private Methods
@@ -64,9 +63,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return NSKeyedUnarchiver.unarchiveObject(withFile: AppDelegate.DocumentsDirectory.appendingPathComponent("timelastclosed").path) as? TimeInterval
     }
     
+    
     private func saveTimeLastClosed() {
-        let timeLastClosed = NSTimeIntervalSince1970
+     
+        let timeLastClosed = Date().timeIntervalSince1970
+        
         for name in gamesNeedToSaveLastTime.allKeys {
+            print("save: \(timeLastClosed)")
+            print("name: \(name)")
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(timeLastClosed, toFile: AppDelegate.DocumentsDirectory.appendingPathComponent("timelastclosedfor" + (name as! String)).path)
             if isSuccessfulSave {
                 os_log("Saving timelastclosed for was successful", log: OSLog.default, type: .debug)
@@ -104,6 +108,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //was last displayed by the buildingTableViewController
     }
     
+    static func loadTimeSinceLastClosed(game: Game) -> TimeInterval? {
+        if let timeLastClosed = NSKeyedUnarchiver.unarchiveObject(withFile: AppDelegate.DocumentsDirectory.appendingPathComponent("timelastclosedfor" + game.name).path) as? TimeInterval {
+            print("Curr: \(Date().timeIntervalSince1970)")
+            print("last: \(timeLastClosed)")
+            return Date().timeIntervalSince1970 - timeLastClosed
+        }
+        else {
+            return nil
+        }
+        
+    }
 
 }
 
